@@ -6,12 +6,6 @@ plugins {
     id 'java'
     id 'maven-publish'
 }
-task hello(dependsOn: test) {
-  
-        println 'Hello!'
-
-}
-
 
 
 

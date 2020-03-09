@@ -4,6 +4,7 @@
                     http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+
 <!--
 src/test/java/com/test/UnitTest.java
 src/main/resources/project.properties
@@ -15,7 +16,6 @@ src/main/java/com/test/Project.java
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>maven-simple</name>
-
                 <dependencies>
                         <dependency>
                             <groupId>junit</groupId>
@@ -24,48 +24,97 @@ src/main/java/com/test/Project.java
                             <scope>test</scope>
                         </dependency>
                        
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-collections4</artifactId>
-				<version>4.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.maven</groupId>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
                                 <artifactId>maven-core</artifactId>
                                 <version>3.0.4</version>
                         </dependency>
                     </dependencies>
 
-	         <build>
-		        <outputDirectory>target</outputDirectory>
-			<finalName>${maven.build.timestamp}</finalName>
-         		<sourceDirectory>src/main/java/com/test</sourceDirectory>
-                	<resources>
-				<resource>
-                    			<directory>${basedir}/src/main</directory>
-                    			<includes>
-                    				<include>**/*.properties</include>
-                    			</includes>
-                		</resource>
-            		</resources>
+
+           <build>
+            <outputDirectory>target</outputDirectory>
+      <finalName>${maven.build.timestamp}-new</finalName>
+            <sourceDirectory>src/main/java/com/test</sourceDirectory>
+                  <resources>
+        <resource>
+                          <directory>${basedir}/src/main</directory>
+                          <includes>
+                            <include>**/*.properties</include>
+                          </includes>
+                    </resource>
+                </resources>
                  <plugins>
-    			<plugin>
-      				<groupId>org.apache.maven.plugins</groupId>
-      				<artifactId>maven-jar-plugin</artifactId>
-      				<version>2.3.1</version>
-      				<configuration>
-        				<outputDirectory>${basedir}/artifact</outputDirectory>
-      				</configuration>
-			 </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>2.3.1</version>
+              <configuration>
+                <outputDirectory>${basedir}/artifact</outputDirectory>
+              </configuration>
+       </plugin>
                      <plugin>
                          <groupId>org.apache.maven.plugins</groupId>
                          <artifactId>maven-pmd-plugin</artifactId>
                          <version>3.2.1</version>
                      </plugin>
+  <plugin>
+      <artifactId>maven-clean-plugin</artifactId>
+      <version>2.5</version>
+      <executions>
+        <execution>
+          <id>default-clean</id>
+          <phase>clean</phase>
+          <goals>
+            <goal>clean</goal>
+          </goals>
+        </execution>
+      </executions>
+               </plugin>
                      <plugin>
                          <groupId>org.codehaus.mojo</groupId>
                          <artifactId>sonar-maven-plugin</artifactId>
                      </plugin>
+                           <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+   <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+         <version>3.8.1</version>
+          <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      <executions>
+        <execution>
+          <id>default-compile</id>
+          <phase>compile</phase>
+          <goals>
+            <goal>compile</goal>
+          </goals>
+        </execution>
+      </executions>
+          </plugin>
+  <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-source-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>attach-sources</id>
+          <goals>
+      <goal>jar</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
                  </plugins>
              </build>
+
 </project>
