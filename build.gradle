@@ -7,9 +7,9 @@ plugins {
     id 'maven-publish'
 }
 task hello(dependsOn: test) {
-    doLast {
+  
         println 'Hello!'
-    }
+
 }
 
 
