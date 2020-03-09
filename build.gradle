@@ -6,11 +6,21 @@ plugins {
     id 'java'
     id 'maven-publish'
 }
+task hello(dependsOn: test) {
+    doLast {
+        println 'Hello!'
+    }
+}
+
+
+
 
 repositories {
+    jcenter()
+    google()
     mavenLocal()
     maven {
-        url = 'http://repo.maven.apache.org/maven2'
+        url = 'http://repo1.maven.apache.org/maven2'
     }
 }
 
@@ -24,6 +34,7 @@ group = 'srv.jenfins'
 version = '0.1-SNAPSHOT'
 description = 'maven-simple'
 sourceCompatibility = '1.8'
+
 
 publishing {
     publications {
