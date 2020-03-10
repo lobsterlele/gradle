@@ -7,6 +7,17 @@ plugins {
     id 'maven-publish'
 }
 
+task hello {
+    print 'hello!'
+}
+
+// Объявляем зависимость 'task' от 'hello'
+
+task task {
+    dependsOn hello
+}
+
+
 
 
 repositories {
