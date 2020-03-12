@@ -17,8 +17,13 @@ task task {
     dependsOn hello
 }
 
+task test1 {
+    sleep 12
+}
 
-
+task test2 {
+    sleep 15
+}
 
 repositories {
     jcenter()
