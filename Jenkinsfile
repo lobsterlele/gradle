@@ -29,7 +29,7 @@ node {
     }
 
     stage('package') {
-       sh 'tar -cf $JENKINS_HOME/workspace/testPipeJob/pipeline-$BUILD_NUMBER.tar.gz script.jenkisfile'
+       sh 'tar -cf $JENKINS_HOME/workspace/testPipeJob/pipeline-$BUILD_NUMBER.tar.gz Jenkinsfile'
        
     }
     stage('upload') {
