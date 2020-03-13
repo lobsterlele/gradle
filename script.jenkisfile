@@ -1,5 +1,4 @@
 node {
-    numberValue = "$BUILD_NUMBER"
     def gradleHome = tool 'gradle 5.1'
     git 'https://github.com/lobsterlele/gradle'
 
@@ -12,7 +11,7 @@ node {
         sh "'${gradleHome}/bin/gradle' build"
         
     }
-    /*stage('parallelTest') {
+    stage('parallelTest') {
         parallel test1: {
             sh "'${gradleHome}/bin/gradle' test1"
             sleep 10
@@ -27,14 +26,14 @@ node {
     
     stage('trigerJob') {
         build 'hello'
-    }*/
+    }
 
     stage('package') {
-       sh 'tar -cf $JENKINS_HOME/workspace/pipelineArtifacts/pipeline-$BUILD_NUMBER.tar.gz script.jenkisfile'
+       sh 'tar -cf $JENKINS_HOME/workspace/testPipeJob/pipeline-$BUILD_NUMBER.tar.gz script.jenkisfile'
        
     }
     stage('upload') {
-        nexusArtifactUploader artifacts: [artifactId: 'SomeArt', classifier: '', file: '$JENKINS_HOME/workspace/pipelineArtifacts/pipeline-$BUILD_NUMBER.tar.gz', type: 'tar.gz']], credentialsId: 'nexus-cred', groupId: 'asd', nexusUrl: '172.23.11.111:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'deploy', version: '1.0'
+        nexusArtifactUploader artifacts: [[artifactId: 'SomeArt', classifier: '', file: '$JENKINS_HOME/workspace/testPipeJob/pipeline-$BUILD_NUMBER.tar.gz', type: 'tar.gz']], credentialsId: 'logintonexus', groupId: 'Hello', nexusUrl: '172.23.11.47:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'pipe', version: '$BUILD_NUMBER'
     }
        
     stage('Asking for manual approval') {
@@ -44,9 +43,8 @@ node {
 
        
     stage('Deployment'){
-         sh 'wget http://nexus/repository/pipeline/Hello/SomeArt/$BUILD_NUMBER/SomeArt-$BUILD_NUMBER.tar.gz -P $JENKINS_HOME/download'
-         sh 'mkdir -p $JENKINS_HOME/download/SomeArt-$BUILD_NUMBER'
-         build job: 'unTar', parameters: [[$class: 'StringParameterValue', name: 'NUM', value: numberValue]]
+         sh 'wget http://172.23.11.47:8081/repository/pipe/Hello/SomeArt/$BUILD_NUMBER/SomeArt-$BUILD_NUMBER.tar.gz'
+         sh 'tar -xf SomeArt-$BUILD_NUMBER.tar.gz'
          
         
     } 
